@@ -119,31 +119,41 @@ export function computeAdditionalTaxPerFiler(
 /**
  * Default behavioral parameters.
  *
- * Calibrated from:
- * - Young et al. (2016): millionaire migration elasticity ~0.1-0.4
- *   (measured as % change in millionaire population per 1pp tax change)
- * - Moretti & Wilson (2017): elasticity of top scientists w.r.t. net-of-tax rate ~1.6-2.3
- * - Kleven et al. (2014): foreign top earner elasticity ~1.6 (Denmark)
- * - Young & Varner (2011): NJ millionaire tax - net migration ~1-2% of affected filers
- * - IRS SOI migration data: NY net out-migration ~0.5-1.5% of high-income filers/year
+ * Calibrated from academic literature:
  *
- * Conservative defaults (toward lower end of estimates):
- * - Base migration rate: 1.5%/year (observed NY background rate for high earners)
- * - Migration elasticity: 1.5 (moderate, between Young's 0.4 and Moretti's 2.3)
- * - Max migration share: 15% (cap on cumulative departure over projection window)
- * - Threshold: $100K additional annual tax (where behavior meaningfully shifts)
+ * MIGRATION SEMI-ELASTICITY (additional pp out-migration per 1pp tax increase):
+ * - Young & Varner (2016, ASR): 0.1-0.4 pp for NJ millionaires
+ * - Rauh & Shyu (2021, NBER): 0.8 pp for CA top bracket (but migration = only 9.5% of behavioral response)
+ * - Kleven et al. (2014, QJE): ~1.5-2.0 for FOREIGN top earners; insignificant for domestic
+ * - Moretti & Wilson (2017, AER): 1.6-3.0 for star scientists (upper bound for mobile talent)
+ *
+ * BASELINE OUT-MIGRATION:
+ * - Pre-TCJA: ~1.5-2.5%/year gross out-migration for $1M+ filers
+ * - Post-TCJA/pre-COVID: ~2.5-4.0% (SALT cap effectively raised burden ~4pp for NYC $1M+ filers)
+ * - IRS SOI: NY net AGI outflow $15-20B/year (2018-19), $25-40B/year (2020-21 w/COVID)
+ *
+ * KEY INSIGHT (Young 2016): "Millionaires are not very mobile."
+ * Migration explains only ~5-10% of total behavioral revenue loss.
+ * Income shifting is typically much larger but is NOT modeled here.
+ *
+ * AGGLOMERATION: NYC has strong industry clustering (finance, media, law)
+ * that reduces tax-motivated mobility. Estimated 0.7x discount vs generic state estimates.
+ *
+ * CONSERVATIVE APPROACH: Defaults use central-to-high estimates because this model
+ * ONLY captures migration, not income shifting. Users exploring "total behavioral response"
+ * should use higher elasticities.
  */
 export const DEFAULT_BEHAVIORAL_PARAMS: BehavioralParams = {
   model: 'hybrid',
-  baseMigrationRate: 0.015,
-  migrationElasticity: 1.5,
-  maxMigrationShare: 0.15,
-  thresholdDollars: 100_000,
-  logisticSlope: 50_000,
-  year1Share: 0.3,
-  year3Share: 0.7,
-  year5Share: 1.0,
-  replacementRate: 0.0,
+  baseMigrationRate: 0.025,          // 2.5%/year (post-TCJA observed rate for high earners)
+  migrationElasticity: 1.0,          // Central: between Young's 0.4 and Moretti's 2.3
+  maxMigrationShare: 0.12,           // 12% cumulative cap over projection window
+  thresholdDollars: 100_000,         // ~$100K additional tax triggers behavioral shift
+  logisticSlope: 50_000,             // S-curve steepness
+  year1Share: 0.3,                   // 30% of total migration in year 1
+  year3Share: 0.7,                   // 70% by year 3
+  year5Share: 1.0,                   // Fully realized by year 5
+  replacementRate: 0.0,              // Conservative: no replacement (overstates loss)
 };
 
 /**
@@ -432,13 +442,13 @@ export function runScenarios(
       }, cohorts),
     },
     {
-      label: 'Conservative response',
+      label: 'Conservative response (Young & Varner)',
       output: runModel({
         ...baseInput,
         behavioral: {
           ...baseInput.behavioral,
           model: 'hybrid',
-          migrationElasticity: 0.5,
+          migrationElasticity: 0.4,
           maxMigrationShare: 0.05,
           thresholdDollars: 200_000,
         },
@@ -449,14 +459,14 @@ export function runScenarios(
       output: runModel(baseInput, cohorts),
     },
     {
-      label: 'Aggressive response',
+      label: 'Aggressive response (Moretti & Wilson)',
       output: runModel({
         ...baseInput,
         behavioral: {
           ...baseInput.behavioral,
           model: 'hybrid',
-          migrationElasticity: 2.5,
-          maxMigrationShare: 0.25,
+          migrationElasticity: 2.3,
+          maxMigrationShare: 0.20,
           thresholdDollars: 50_000,
           logisticSlope: 30_000,
         },

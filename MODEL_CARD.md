@@ -36,17 +36,27 @@ This calculator estimates how changes to New York State and New York City income
 ### Behavioral Response Parameters
 - **Young, Varner, Lurie, & Prisinzano (2016)** — "Millionaire Migration and Taxation of the Elite"
   - American Sociological Review, 81(3), 421-446
-  - Finding: Modest migration response (elasticity ~0.1-0.4 for millionaires)
+  - Finding: Modest migration response. Semi-elasticity ~0.1-0.4 pp per 1pp tax increase.
+  - Core conclusion: "Millionaires are not very mobile."
+  - NJ millionaire tax caused ~60-70 additional departures/year out of ~25,000 filers
   - DOI: 10.1177/0003122416639625
-- **Moretti & Wilson (2017)** — "The Effect of State Taxes on the Geographical Location of Top Earners"
-  - Review of Economics and Statistics, 99(3), 421-434
-  - Finding: Higher elasticity for star scientists (~1.6-2.3)
-  - DOI: 10.1162/REST_a_00653
+- **Rauh & Shyu (2021)** — "Behavioral Responses to State Income Taxation of High Earners"
+  - NBER Working Paper 26349 (Stanford)
+  - Finding: CA Prop 30 — 45% of revenue eroded in year 1, but migration was only ~9.5% of that
+  - Most behavioral response is income shifting, not physical relocation
 - **Kleven, Landais, Saez, & Schultz (2014)** — "Migration and Wage Effects of Taxing Top Earners"
   - Quarterly Journal of Economics, 129(1), 333-378
-  - Finding: High elasticity for foreign top earners in Denmark (~1.6)
+  - Finding: High elasticity (~1.5-2.0) for FOREIGN top earners; insignificant for domestic incumbents
+- **Moretti & Wilson (2017)** — "The Effect of State Taxes on the Geographical Location of Top Earners"
+  - Review of Economics and Statistics, 99(3), 421-434
+  - Finding: Elasticity ~1.6-2.3 for star scientists. Upper bound for mobile talent.
+  - DOI: 10.1162/REST_a_00653
+- **Citizens Budget Commission (2024)** — "The Hidden Cost of New York's Shrinking Millionaire Share"
+  - NY's share of national millionaires: 12.7% (2010) → 8.7% (2022)
+  - Estimated $13B/year in lost PIT revenue from this decline
+  - URL: https://cbcny.org/research/hidden-cost-new-yorks-shrinking-millionaire-share
 - **IRS SOI Migration Data** — Year-to-year address changes
-  - Background out-migration rate for NY high-income filers: ~1.5%/year
+  - Post-TCJA: NY net AGI outflow ~$15-20B/year (2018-19), ~$25-40B/year (2020-21 w/COVID)
   - URL: https://www.irs.gov/statistics/soi-tax-stats-migration-data
 
 ## Model Equations
@@ -101,9 +111,9 @@ if net_revenue < 0:
 
 | Parameter | Default | Source | Type |
 |-----------|---------|--------|------|
-| Base migration rate | 1.5%/year | IRS SOI migration data | Data |
-| Migration elasticity | 1.5 | Literature midpoint (0.4-2.3) | Assumption |
-| Max migration share | 15% | None (cap assumption) | Assumption |
+| Base migration rate | 2.5%/year | IRS SOI migration data (post-TCJA) | Data |
+| Migration elasticity | 1.0 | Literature central (Young 0.4, Moretti 2.3) | Assumption |
+| Max migration share | 12% | Assumption (cap) | Assumption |
 | Tipping threshold | $100,000 | None (informed by cost analysis) | Assumption |
 | Logistic slope | $50,000 | None (curve shape assumption) | Assumption |
 | Year 1 migration share | 30% | Young et al. lag analysis | Assumption |
