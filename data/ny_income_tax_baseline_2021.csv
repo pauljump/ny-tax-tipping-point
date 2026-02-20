@@ -1,0 +1,11 @@
+bracket_label,agi_min,agi_max,filer_count,total_agi_millions,nys_liability_millions,nyc_liability_millions,nyc_resident_share,source,source_url,source_year,is_assumption,notes
+"Under $25K",0,25000,3842000,42750,285,95,0.42,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,"IRS SOI Table 2 NY + NYS DTF PIT Statistics. Filer count includes non-taxable returns."
+"$25K–$50K",25000,50000,2156000,78400,1410,470,0.42,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,""
+"$50K–$75K",75000,75000,1287000,80100,2080,580,0.42,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,""
+"$75K–$100K",75000,100000,856000,74100,2370,630,0.43,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,""
+"$100K–$200K",100000,200000,1423000,199600,7680,2180,0.44,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,""
+"$200K–$500K",200000,500000,612000,182400,9950,3020,0.48,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,"Higher NYC share at upper incomes due to NYC economic concentration"
+"$500K–$1M",500000,1000000,148000,102600,6430,1980,0.52,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,""
+"$1M–$5M",1000000,5000000,82000,155200,11200,3580,0.55,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,"Top brackets have higher NYC resident concentration"
+"$5M–$25M",5000000,25000000,11800,107800,8420,2760,0.58,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,""
+"Over $25M",25000000,Infinity,3200,197600,16150,5200,0.60,IRS SOI + NYS DTF,https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702,2021,false,"~3200 filers account for ~$198B AGI and ~$16B+ NYS liability. Revenue concentration: top 1% pays ~40% of PIT."

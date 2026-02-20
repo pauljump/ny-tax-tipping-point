@@ -1,0 +1,64 @@
+{
+  "description": "NY income tax baseline data sources and methodology",
+  "lastUpdated": "2026-02-20",
+  "taxYear": 2021,
+  "primarySources": [
+    {
+      "name": "IRS Statistics of Income (SOI) - State Data",
+      "url": "https://www.irs.gov/statistics/soi-tax-stats-historic-table-2",
+      "description": "Individual income tax returns by state and income bracket. Provides filer counts and AGI by bracket for NY.",
+      "taxYear": 2021,
+      "accessDate": "2026-02-20"
+    },
+    {
+      "name": "NYS Department of Taxation and Finance - PIT Statistical Reports",
+      "url": "https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702",
+      "description": "Personal income tax filer summary datasets. Provides NYS liability by income range.",
+      "taxYear": 2021,
+      "accessDate": "2026-02-20"
+    },
+    {
+      "name": "NYC Independent Budget Office - Tax Revenue Analysis",
+      "url": "https://www.ibo.nyc.ny.us/",
+      "description": "NYC personal income tax analysis, revenue by bracket, and fiscal notes.",
+      "accessDate": "2026-02-20"
+    },
+    {
+      "name": "NYS Comptroller - Revenue Reports",
+      "url": "https://www.osc.ny.gov/reports/finance",
+      "description": "Annual financial reports with tax revenue breakdowns.",
+      "accessDate": "2026-02-20"
+    }
+  ],
+  "methodology": {
+    "filerCounts": "Based on IRS SOI Table 2 for New York State, tax year 2021. Total ~10.4M returns.",
+    "agiByBracket": "IRS SOI provides total AGI by income class. Values rounded to nearest $100M.",
+    "nysLiability": "Derived from NYS DTF PIT statistics. Cross-referenced with NYS Comptroller total PIT collections ($59.5B for FY2022). Individual bracket splits estimated from effective rate analysis.",
+    "nycLiability": "NYC PIT total ~$15.5B (IBO FY2022). Allocated to brackets using effective rate progression. NYC residents are ~42% of state filers but higher share at top incomes.",
+    "nycResidentShare": "Estimated from IRS SOI migration data and Census. NYC has ~42% of state population but attracts disproportionate high-income earners. Share increases with income bracket.",
+    "revenueConcentration": {
+      "top1pct": "~40% of NYS PIT revenue",
+      "top5pct": "~60% of NYS PIT revenue",
+      "top10pct": "~72% of NYS PIT revenue",
+      "source": "NYS DTF annual reports and IBO analysis"
+    }
+  },
+  "knownLimitations": [
+    "2021 tax year may not reflect post-pandemic migration patterns",
+    "NYC resident share by bracket is estimated, not directly observed in SOI",
+    "Some high-income filers file as pass-throughs; their income appears differently",
+    "Joint vs single filer composition varies by bracket and affects effective rates"
+  ],
+  "totalNysPit": {
+    "value": 59500,
+    "unit": "millions",
+    "source": "NYS Comptroller FY2022 Annual Report",
+    "note": "Cross-check: sum of bracket liabilities should approximate this total"
+  },
+  "totalNycPit": {
+    "value": 15500,
+    "unit": "millions",
+    "source": "NYC IBO Fiscal Brief",
+    "note": "NYC personal income tax collections FY2022"
+  }
+}

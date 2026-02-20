@@ -1,0 +1,31 @@
+{
+  "ideaId": "IDEA-190",
+  "title": "NY Tax Tipping Point Calculator",
+  "status": "concept",
+  "readiness": 0,
+  "github": "https://github.com/pauljump/ny-tax-tipping-point",
+  "directory": "ny-tax-tipping-point",
+  "relatedIdeas": ["IDEA-173"],
+  "lastSession": "2026-02-20",
+  "technology": [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Recharts"
+  ],
+  "domain": [
+    "public-finance",
+    "tax-policy",
+    "behavioral-economics",
+    "migration",
+    "new-york",
+    "civic-tech"
+  ],
+  "coreInnovation": "Data-grounded, politically neutral interactive calculator with multiple behavioral migration models and full assumption transparency",
+  "targetMarket": "Policy analysts, journalists, civic-minded citizens exploring NY tax policy tradeoffs",
+  "businessModel": "Free public tool with potential policy institute or newsroom sponsorship",
+  "nextMilestone": "Collect and validate baseline public datasets (IRS SOI, NYS Tax Dept, NYC IBO)",
+  "soloExecutionPlan": true,
+  "sessions": [],
+  "template_version": 2
+}
