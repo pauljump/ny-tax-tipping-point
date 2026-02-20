@@ -1,64 +1,88 @@
 {
   "description": "NY income tax baseline data sources and methodology",
   "lastUpdated": "2026-02-20",
-  "taxYear": 2021,
+  "taxYear": 2022,
   "primarySources": [
     {
-      "name": "IRS Statistics of Income (SOI) - State Data",
-      "url": "https://www.irs.gov/statistics/soi-tax-stats-historic-table-2",
-      "description": "Individual income tax returns by state and income bracket. Provides filer counts and AGI by bracket for NY.",
-      "taxYear": 2021,
+      "name": "IRS Statistics of Income (SOI) - Table 2, NY State",
+      "url": "https://www.irs.gov/pub/irs-soi/22in33ny.xlsx",
+      "description": "Individual income tax returns by state and income bracket (TY2022). Primary source for filer counts and AGI.",
+      "taxYear": 2022,
       "accessDate": "2026-02-20"
     },
     {
-      "name": "NYS Department of Taxation and Finance - PIT Statistical Reports",
-      "url": "https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702",
-      "description": "Personal income tax filer summary datasets. Provides NYS liability by income range.",
-      "taxYear": 2021,
-      "accessDate": "2026-02-20"
-    },
-    {
-      "name": "NYC Independent Budget Office - Tax Revenue Analysis",
-      "url": "https://www.ibo.nyc.ny.us/",
-      "description": "NYC personal income tax analysis, revenue by bracket, and fiscal notes.",
+      "name": "Citizens Budget Commission (CBC)",
+      "url": "https://cbcny.org/research/hidden-cost-new-yorks-shrinking-millionaire-share",
+      "description": "Revenue concentration analysis. Key finding: $1M+ filers pay 44% of NYS PIT ($25.7B) and 40% of NYC PIT ($6.7B). NY's share of national millionaires fell from 12.7% to 8.7% (2010-2022).",
+      "taxYear": 2022,
       "accessDate": "2026-02-20"
     },
     {
       "name": "NYS Comptroller - Revenue Reports",
       "url": "https://www.osc.ny.gov/reports/finance",
-      "description": "Annual financial reports with tax revenue breakdowns.",
+      "description": "Annual financial reports. NYS PIT collections ~$58.5B (FY2023).",
+      "accessDate": "2026-02-20"
+    },
+    {
+      "name": "NYC Independent Budget Office",
+      "url": "https://www.ibo.nyc.ny.us/",
+      "description": "NYC PIT analysis. Collections ~$16.8B (FY2023).",
+      "accessDate": "2026-02-20"
+    },
+    {
+      "name": "Empire Center",
+      "url": "https://www.empirecenter.org/",
+      "description": "NY tax and migration analysis. NYC collects 40% of income tax from top 1%.",
+      "accessDate": "2026-02-20"
+    },
+    {
+      "name": "Tax Foundation - Federal Income Tax Data (TY2022)",
+      "url": "https://taxfoundation.org/data/all/federal/latest-federal-income-tax-data-2025/",
+      "description": "National percentile thresholds for income tax concentration. Top 1% (≥$663K) pays 40.4% of federal tax nationally.",
+      "taxYear": 2022,
       "accessDate": "2026-02-20"
     }
   ],
   "methodology": {
-    "filerCounts": "Based on IRS SOI Table 2 for New York State, tax year 2021. Total ~10.4M returns.",
-    "agiByBracket": "IRS SOI provides total AGI by income class. Values rounded to nearest $100M.",
-    "nysLiability": "Derived from NYS DTF PIT statistics. Cross-referenced with NYS Comptroller total PIT collections ($59.5B for FY2022). Individual bracket splits estimated from effective rate analysis.",
-    "nycLiability": "NYC PIT total ~$15.5B (IBO FY2022). Allocated to brackets using effective rate progression. NYC residents are ~42% of state filers but higher share at top incomes.",
-    "nycResidentShare": "Estimated from IRS SOI migration data and Census. NYC has ~42% of state population but attracts disproportionate high-income earners. Share increases with income bracket.",
+    "filerCounts": "Directly from IRS SOI Table 2 for New York State, TY2022. Total: 9,767,160 returns.",
+    "agiByBracket": "Directly from IRS SOI. NY total AGI: $1,018.9B.",
+    "nysLiability": "Estimated from effective NYS rates applied to IRS AGI, calibrated to NYS Comptroller total ~$58.5B. $1M+ bracket calibrated to CBC's 44% concentration finding.",
+    "nycLiability": "Estimated similarly, calibrated to NYC IBO total ~$16.8B. $1M+ bracket calibrated to CBC's 40% concentration finding.",
+    "nycResidentShare": "Estimated from Census ACS + IRS SOI. NYC is ~42% of state population, higher share at top incomes (up to ~60% for $25M+).",
+    "millionaireSubSplit": "IRS SOI TY2022 reports $1M+ as a single bracket (69,780 returns, $267.9B AGI). Sub-split into $1M-$5M, $5M-$25M, $25M+ estimated from historical TY2019 SOI detail and proportional analysis.",
     "revenueConcentration": {
-      "top1pct": "~40% of NYS PIT revenue",
-      "top5pct": "~60% of NYS PIT revenue",
-      "top10pct": "~72% of NYS PIT revenue",
-      "source": "NYS DTF annual reports and IBO analysis"
+      "millionaires_nys": "44% of NYS PIT (~$25.7B)",
+      "millionaires_nyc": "40% of NYC PIT (~$6.7B)",
+      "top500k_federal": "53.9% of federal tax from NY",
+      "bottom50pct_federal": "3.0% of federal tax from NY",
+      "source": "CBC + IRS SOI TY2022 + Tax Foundation"
     }
   },
   "knownLimitations": [
-    "2021 tax year may not reflect post-pandemic migration patterns",
-    "NYC resident share by bracket is estimated, not directly observed in SOI",
-    "Some high-income filers file as pass-throughs; their income appears differently",
-    "Joint vs single filer composition varies by bracket and affects effective rates"
+    "IRS SOI reports $1M+ as single bracket; sub-brackets are estimated",
+    "NYC resident share by bracket is estimated, not directly observed",
+    "Some high-income filers use pass-through structures; their income may appear differently",
+    "Joint vs single filer composition varies by bracket and affects effective rates",
+    "State tax liability by bracket is estimated (calibrated to known totals), not directly observed"
   ],
+  "keyFinding": {
+    "description": "NY's share of the nation's millionaires fell from 12.7% (2010) to 8.7% (2022). If NY had maintained its share, the state and city would collect an additional $13 billion per year in PIT revenue.",
+    "source": "Citizens Budget Commission"
+  },
   "totalNysPit": {
-    "value": 59500,
+    "value": 58500,
     "unit": "millions",
-    "source": "NYS Comptroller FY2022 Annual Report",
-    "note": "Cross-check: sum of bracket liabilities should approximate this total"
+    "source": "NYS Comptroller FY2023 Annual Report"
   },
   "totalNycPit": {
-    "value": 15500,
+    "value": 16800,
     "unit": "millions",
-    "source": "NYC IBO Fiscal Brief",
-    "note": "NYC personal income tax collections FY2022"
+    "source": "NYC IBO FY2023"
+  },
+  "combinedTopRate": {
+    "value": 14.776,
+    "unit": "percent",
+    "components": "NYS 10.9% + NYC 3.876%",
+    "note": "Highest combined state+local income tax rate in the nation"
   }
 }
