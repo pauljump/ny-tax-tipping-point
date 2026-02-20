@@ -29,12 +29,18 @@ import { BASELINE_COHORTS } from './data';
 // ─────────────────────────────────────────
 
 /**
- * NYS income tax brackets for single filers (2024).
- * Source: NYS Tax Law § 601
- * https://www.tax.ny.gov/pit/file/tax_tables.htm
+ * NYS income tax brackets for single filers (2025).
+ * Source: NYS Tax Law § 601, IT-201 instructions
+ * https://www.tax.ny.gov/forms/current-forms/it/it201i.htm
  *
- * Includes the temporary top rates enacted in 2021 budget
- * (scheduled to sunset after 2027 per current law).
+ * Top 3 brackets are temporary surcharges enacted April 2021 (FY2022 budget):
+ * - 9.65% ($1.08M+): extended through 2032 (FY2024 budget)
+ * - 10.30% ($5M+): sunsets after tax year 2027
+ * - 10.90% ($25M+): sunsets after tax year 2027
+ *
+ * Combined top rate for NYC residents: 14.776% (NYS 10.9% + NYC 3.876%)
+ * This is the highest combined state+local income tax rate in the nation.
+ * Combined with federal 37%: total marginal rate ~51.8% on ordinary income.
  */
 export const NYS_BRACKETS: TaxBracket[] = [
   { min: 0, max: 8_500, rate: 0.04 },
@@ -49,9 +55,10 @@ export const NYS_BRACKETS: TaxBracket[] = [
 ];
 
 /**
- * NYC income tax brackets (2024).
+ * NYC income tax brackets (2025).
  * Source: NYC Admin Code § 11-1701
- * https://www.nyc.gov/site/finance/taxes/property-tax-rates.page
+ * These rates are permanent (no sunset).
+ * Top rate: 3.876% on income over $50K (single).
  */
 export const NYC_BRACKETS: TaxBracket[] = [
   { min: 0, max: 12_000, rate: 0.03078 },

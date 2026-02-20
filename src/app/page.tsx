@@ -399,6 +399,40 @@ export default function Home() {
                   })}
                 </div>
               </div>
+
+              {/* Tax Rate Comparison */}
+              <div className="card">
+                <h3 className="font-semibold mb-3">Combined Top Marginal Rates — Competing Jurisdictions</h3>
+                <p className="text-sm text-[var(--muted)] mb-3">
+                  NYC has the highest combined state+local income tax rate in the nation.
+                  SALT deduction cap: $40,000 (raised from $10,000 in 2025).
+                </p>
+                <div className="space-y-2">
+                  {[
+                    { label: 'NYC (NYS+NYC)', rate: 0.14776, federal: 0.37, color: '#dc2626' },
+                    { label: 'California', rate: 0.133, federal: 0.37, color: '#f59e0b' },
+                    { label: 'New Jersey', rate: 0.1075, federal: 0.37, color: '#f59e0b' },
+                    { label: 'Connecticut', rate: 0.0699, federal: 0.37, color: '#3b82f6' },
+                    { label: 'Florida / Texas', rate: 0, federal: 0.37, color: '#16a34a' },
+                  ].map(s => (
+                    <div key={s.label} className="flex items-center gap-3">
+                      <span className="text-sm w-28 text-right">{s.label}</span>
+                      <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-5 relative">
+                        <div
+                          className="h-5 rounded-full"
+                          style={{ width: `${((s.rate + s.federal) / 0.55) * 100}%`, backgroundColor: s.color }}
+                        />
+                        <span className="absolute inset-0 flex items-center justify-center text-xs font-medium">
+                          {formatPercent(s.rate + s.federal, 1)} total ({formatPercent(s.rate, 1)} state/local)
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-[var(--muted)] mt-2 italic">
+                  NYS surcharges (10.30%, 10.90%) sunset after 2027. The 9.65% rate extended through 2032.
+                </p>
+              </div>
             </div>
           )}
 
