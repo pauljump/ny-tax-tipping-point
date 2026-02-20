@@ -1,0 +1,11 @@
+bracket_label,agi_min,agi_max,filer_count,total_agi_millions,nys_liability_millions,nyc_liability_millions,nyc_resident_share,source,source_url,source_year,is_assumption,notes
+"Under $25K",0,25000,2881200,16100,350,120,0.42,IRS SOI TY2022,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,"Combined: Under $1 (167.6K) + $1-$10K (1106K) + $10K-$25K (1607K). Includes negative AGI filers."
+"$25K–$50K",25000,50000,2077790,76600,1800,590,0.42,IRS SOI TY2022,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,""
+"$50K–$75K",50000,75000,1439660,88800,2700,830,0.42,IRS SOI TY2022,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,""
+"$75K–$100K",75000,100000,944360,81800,3100,920,0.43,IRS SOI TY2022,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,""
+"$100K–$200K",100000,200000,1586490,219000,9200,2750,0.44,IRS SOI TY2022,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,""
+"$200K–$500K",200000,500000,648030,187300,10200,3100,0.48,IRS SOI TY2022,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,""
+"$500K–$1M",500000,1000000,119860,81300,5500,1700,0.52,IRS SOI TY2022,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,""
+"$1M–$5M",1000000,5000000,57300,107200,9400,2450,0.55,IRS SOI TY2022 + CBC,https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,false,"$1M+ cohort split estimated. CBC: millionaires pay 44% NYS PIT and 40% NYC PIT."
+"$5M–$25M",5000000,25000000,9800,80700,8200,2150,0.58,IRS SOI TY2022 (est),https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,true,"Sub-split from $1M+ bracket using historical proportions."
+"Over $25M",25000000,Infinity,2680,80000,8100,2100,0.60,IRS SOI TY2022 (est),https://www.irs.gov/pub/irs-soi/22in33ny.xlsx,2022,true,"~2680 filers. Combined top marginal rate: 14.776%."

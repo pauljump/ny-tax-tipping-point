@@ -83,13 +83,14 @@ export function TransparencyPanel({ params }: Props) {
         <h3 className="font-semibold mb-3">Data Sources</h3>
         <div className="text-sm space-y-2">
           {[
-            { name: 'IRS Statistics of Income (SOI)', url: 'https://www.irs.gov/statistics/soi-tax-stats-historic-table-2', desc: 'Filer counts and AGI by income bracket for New York' },
-            { name: 'NYS Dept of Taxation and Finance', url: 'https://www.tax.ny.gov/research/stats/statistics/pit-filers-summary-datasets-702', desc: 'Personal income tax filer summary datasets' },
-            { name: 'NYC Independent Budget Office', url: 'https://www.ibo.nyc.ny.us/', desc: 'NYC personal income tax analysis and fiscal notes' },
-            { name: 'NYS Comptroller', url: 'https://www.osc.ny.gov/reports/finance', desc: 'Annual financial reports with tax revenue totals' },
+            { name: 'IRS SOI Table 2 (TY2022)', url: 'https://www.irs.gov/pub/irs-soi/22in33ny.xlsx', desc: 'Filer counts and AGI by income bracket for New York — primary data source' },
+            { name: 'Citizens Budget Commission', url: 'https://cbcny.org/research/hidden-cost-new-yorks-shrinking-millionaire-share', desc: 'Revenue concentration analysis — millionaires pay 44% of NYS PIT' },
+            { name: 'NYS Comptroller', url: 'https://www.osc.ny.gov/reports/finance', desc: 'Annual financial reports — NYS PIT total ~$58.5B (FY2023)' },
+            { name: 'NYC Independent Budget Office', url: 'https://www.ibo.nyc.ny.us/', desc: 'NYC PIT analysis — ~$16.8B total (FY2023)' },
+            { name: 'Tax Foundation', url: 'https://taxfoundation.org/data/all/federal/latest-federal-income-tax-data-2025/', desc: 'National income tax percentile thresholds' },
             { name: 'IRS Migration Data', url: 'https://www.irs.gov/statistics/soi-tax-stats-migration-data', desc: 'Year-to-year address changes by income' },
             { name: 'Young et al. (2016)', url: 'https://doi.org/10.1177/0003122416639625', desc: 'Millionaire Migration and Taxation of the Elite - ASR' },
-            { name: 'Moretti & Wilson (2017)', url: 'https://doi.org/10.1162/REST_a_00653', desc: 'Effect of State Taxes on the Geographical Location of Top Earners - REStat' },
+            { name: 'Moretti & Wilson (2017)', url: 'https://doi.org/10.1162/REST_a_00653', desc: 'Effect of State Taxes on Location of Top Earners - REStat' },
           ].map((s, i) => (
             <div key={i} className="flex items-start gap-2">
               <span className="text-[var(--accent)] shrink-0">→</span>

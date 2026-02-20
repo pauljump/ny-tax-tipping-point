@@ -59,7 +59,7 @@ export default function Home() {
           </p>
           <div className="flex gap-4 mt-3 text-sm">
             <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-0.5 rounded">
-              Data: Tax Year 2021
+              Data: Tax Year 2022 (IRS SOI)
             </span>
             <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-0.5 rounded">
               {formatNumber(baselineStats.totalFilers)} filers

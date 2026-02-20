@@ -563,12 +563,13 @@ export function exportAssumptionsJSON(input: ModelInput): string {
       min: input.middleIncomeMin,
       max: input.middleIncomeMax,
     },
-    dataYear: 2021,
+    dataYear: 2022,
     dataSources: [
-      'IRS Statistics of Income (SOI) Table 2 - New York State',
-      'NYS Department of Taxation and Finance PIT Statistics',
-      'NYC Independent Budget Office fiscal analysis',
-      'NYS Comptroller annual financial reports',
+      'IRS Statistics of Income (SOI) Table 2 - New York State (TY2022)',
+      'Citizens Budget Commission - Revenue Concentration Analysis',
+      'NYS Comptroller Annual Financial Reports (FY2023)',
+      'NYC Independent Budget Office fiscal analysis (FY2023)',
+      'Empire Center - Millionaire Migration Analysis',
     ],
   }, null, 2);
 }
