@@ -45,7 +45,7 @@ export function MigrationChart({ results }: Props) {
             {data.map((entry, index) => (
               <Cell
                 key={index}
-                fill={entry.migrationPct > 10 ? '#dc2626' : entry.migrationPct > 5 ? '#f59e0b' : '#3b82f6'}
+                fill={entry.migrationPct > 10 ? '#f43f5e' : entry.migrationPct > 5 ? '#a78bfa' : '#3b82f6'}
               />
             ))}
           </Bar>

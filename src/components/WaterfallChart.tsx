@@ -19,19 +19,19 @@ export function WaterfallChart({ output }: Props) {
     {
       name: 'Mechanical Gain',
       value: output.totalMechanicalGain / 1e9,
-      fill: '#16a34a',
+      fill: '#14b8a6',
       base: output.baselineRevenue / 1e9,
     },
     {
       name: 'Behavioral Loss',
       value: -output.totalBehavioralLoss / 1e9,
-      fill: '#dc2626',
+      fill: '#f43f5e',
       base: (output.baselineRevenue + output.totalMechanicalGain) / 1e9,
     },
     {
       name: 'Net Result',
       value: (output.baselineRevenue + output.netRevenueChange) / 1e9,
-      fill: output.netRevenueChange >= 0 ? '#2563eb' : '#dc2626',
+      fill: output.netRevenueChange >= 0 ? '#2563eb' : '#f43f5e',
       base: 0,
     },
   ];

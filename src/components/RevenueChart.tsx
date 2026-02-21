@@ -43,12 +43,12 @@ export function RevenueChart({ data, currentRate }: Props) {
             labelFormatter={v => `Rate: ${formatPercent(Number(v))}`}
           />
           <Legend />
-          <Area type="monotone" dataKey="mechanical" name="Mechanical Gain" stroke="#16a34a" fill="#bbf7d0" fillOpacity={0.5} />
+          <Area type="monotone" dataKey="mechanical" name="Mechanical Gain" stroke="#14b8a6" fill="#99f6e4" fillOpacity={0.5} />
           <Area type="monotone" dataKey="net" name="Net Revenue" stroke="#2563eb" fill="#dbeafe" fillOpacity={0.5} />
-          <Area type="monotone" dataKey="behavioral" name="Behavioral Loss" stroke="#dc2626" fill="#fecaca" fillOpacity={0.5} />
+          <Area type="monotone" dataKey="behavioral" name="Behavioral Loss" stroke="#f43f5e" fill="#fecdd3" fillOpacity={0.5} />
           <ReferenceLine x={currentRate} stroke="#f59e0b" strokeDasharray="5 5" label={{ value: 'Current', position: 'top', fontSize: 11 }} />
           {tippingRate !== null && (
-            <ReferenceLine x={tippingRate} stroke="#dc2626" strokeDasharray="3 3" label={{ value: 'Tipping Point', position: 'top', fontSize: 11 }} />
+            <ReferenceLine x={tippingRate} stroke="#f43f5e" strokeDasharray="3 3" label={{ value: 'Tipping Point', position: 'top', fontSize: 11 }} />
           )}
         </AreaChart>
       </ResponsiveContainer>

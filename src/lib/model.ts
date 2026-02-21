@@ -146,21 +146,22 @@ export function computeAdditionalTaxPerFiler(
  * AGGLOMERATION: NYC has strong industry clustering (finance, media, law)
  * that reduces tax-motivated mobility. Estimated 0.7x discount vs generic state estimates.
  *
- * CONSERVATIVE APPROACH: Defaults use central-to-high estimates because this model
- * ONLY captures migration, not income shifting. Users exploring "total behavioral response"
- * should use higher elasticities.
+ * DEFAULT CALIBRATION: Defaults use central estimates for migration-only response.
+ * Income shifting (ETI ~0.4 per Gruber & Saez) is NOT modeled separately.
+ * Users exploring "total behavioral response" should use higher elasticities.
+ * Replacement rate of 15% reflects NY's continued (if slower) attraction of high earners.
  */
 export const DEFAULT_BEHAVIORAL_PARAMS: BehavioralParams = {
   model: 'hybrid',
   baseMigrationRate: 0.025,          // 2.5%/year (post-TCJA observed rate for high earners)
-  migrationElasticity: 1.0,          // Central: between Young's 0.4 and Moretti's 2.3
-  maxMigrationShare: 0.12,           // 12% cumulative cap over projection window
+  migrationElasticity: 0.5,          // Central migration-only estimate: Young 0.1-0.4, Rauh & Shyu 0.8
+  maxMigrationShare: 0.08,           // 8% cumulative cap (Young implies ~1.5% over 5yr for moderate increase)
   thresholdDollars: 100_000,         // ~$100K additional tax triggers behavioral shift
   logisticSlope: 50_000,             // S-curve steepness
   year1Share: 0.3,                   // 30% of total migration in year 1
   year3Share: 0.7,                   // 70% by year 3
   year5Share: 1.0,                   // Fully realized by year 5
-  replacementRate: 0.0,              // Conservative: no replacement (overstates loss)
+  replacementRate: 0.15,             // 15% replacement (NY still attracts high earners despite outflows)
 };
 
 /**
@@ -455,9 +456,10 @@ export function runScenarios(
         behavioral: {
           ...baseInput.behavioral,
           model: 'hybrid',
-          migrationElasticity: 0.4,
-          maxMigrationShare: 0.05,
+          migrationElasticity: 0.3,
+          maxMigrationShare: 0.04,
           thresholdDollars: 200_000,
+          replacementRate: 0.25,
         },
       }, cohorts),
     },
@@ -472,10 +474,11 @@ export function runScenarios(
         behavioral: {
           ...baseInput.behavioral,
           model: 'hybrid',
-          migrationElasticity: 2.3,
-          maxMigrationShare: 0.20,
+          migrationElasticity: 1.8,
+          maxMigrationShare: 0.15,
           thresholdDollars: 50_000,
           logisticSlope: 30_000,
+          replacementRate: 0.0,
         },
       }, cohorts),
     },
@@ -564,15 +567,15 @@ export function exportAssumptionsJSON(input: ModelInput): string {
     behavioral: {
       ...input.behavioral,
       _sources: {
-        baseMigrationRate: 'IRS SOI migration data for NY high-income filers (~1.5%/year)',
-        migrationElasticity: 'Literature range 0.4-2.3; default 1.5 (Young et al., Moretti & Wilson)',
-        maxMigrationShare: 'Assumption: cap at 15% cumulative departure',
+        baseMigrationRate: 'IRS SOI migration data for NY high-income filers (~2.5%/year post-TCJA)',
+        migrationElasticity: 'Literature range 0.1-2.3; default 0.5 migration-only central (Young & Varner, Rauh & Shyu)',
+        maxMigrationShare: 'Assumption: cap at 8% cumulative departure',
         thresholdDollars: 'Assumption: $100K additional annual tax triggers behavioral shift',
         logisticSlope: 'Assumption: controls steepness of response curve',
         year1Share: 'Assumption: 30% of total migration occurs in year 1',
         year3Share: 'Assumption: 70% by year 3',
         year5Share: 'Assumption: fully realized by year 5',
-        replacementRate: 'Assumption: 0% replacement by default (conservative)',
+        replacementRate: 'Assumption: 15% replacement (NYC agglomeration attracts ongoing inflow)',
       },
     },
     timeHorizon: input.timeHorizon,

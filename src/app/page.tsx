@@ -85,6 +85,7 @@ export default function Home() {
                 min={0} max={0.10} step={0.001}
                 format={v => formatPercent(v)}
                 onChange={v => updatePolicy({ surchargeRate: v })}
+                note="Additional tax rate applied to income above the surcharge threshold. Stacks on top of existing NYS brackets (up to 10.9%)."
               />
               <SelectInput
                 label="Surcharge Threshold"
@@ -98,6 +99,7 @@ export default function Home() {
                   { label: '$25M', value: 25_000_000 },
                 ]}
                 onChange={v => updatePolicy({ surchargeThreshold: v })}
+                note="Income level above which the surcharge applies. Only income above this amount is taxed at the surcharge rate."
               />
               <SliderInput
                 label="Flat Rate Change (all brackets)"
@@ -105,11 +107,13 @@ export default function Home() {
                 min={-0.02} max={0.02} step={0.001}
                 format={v => `${v >= 0 ? '+' : ''}${formatPercent(v)}`}
                 onChange={v => updatePolicy({ flatRateChange: v })}
+                note="Uniform rate increase or decrease applied to all income levels. Affects every filer regardless of income."
               />
               <CheckboxInput
                 label="Include NYC tax changes"
                 checked={input.policy.includeNyc}
                 onChange={v => updatePolicy({ includeNyc: v })}
+                note="When enabled, NYC residents face both state and city surcharges. NYC residents are 42–60% of filers depending on bracket."
               />
               {input.policy.includeNyc && (
                 <>
@@ -119,6 +123,7 @@ export default function Home() {
                     min={0} max={0.05} step={0.001}
                     format={v => formatPercent(v)}
                     onChange={v => updatePolicy({ nycSurchargeRate: v })}
+                    note="Additional NYC-only tax rate. Stacks on existing NYC rates (up to 3.876%). Only applies to NYC residents."
                   />
                   <SelectInput
                     label="NYC Surcharge Threshold"
@@ -129,6 +134,7 @@ export default function Home() {
                       { label: '$5M', value: 5_000_000 },
                     ]}
                     onChange={v => updatePolicy({ nycSurchargeThreshold: v })}
+                    note="Income level above which the NYC surcharge applies."
                   />
                 </>
               )}
@@ -149,6 +155,7 @@ export default function Home() {
                   { label: 'Hybrid logistic (recommended)', value: 'hybrid' },
                 ]}
                 onChange={v => updateBehavioral({ model: v as BehavioralModelType })}
+                note="How migration responds to tax changes. 'Static' assumes nobody moves. 'Elasticity' scales linearly. 'Threshold' triggers at a dollar amount. 'Hybrid' uses an S-curve combining both."
               />
               {input.behavioral.model !== 'none' && (
                 <>
@@ -158,7 +165,7 @@ export default function Home() {
                     min={0} max={4} step={0.1}
                     format={v => v.toFixed(1)}
                     onChange={v => updateBehavioral({ migrationElasticity: v })}
-                    note="Literature range: 0.4–2.3"
+                    note="How responsive migration is to tax changes. Young & Varner found 0.1–0.4 for NJ millionaires; Moretti & Wilson found 1.6–2.3 for star scientists (upper bound)."
                   />
                   <SliderInput
                     label="Max Migration Share"
@@ -166,7 +173,7 @@ export default function Home() {
                     min={0} max={0.40} step={0.01}
                     format={v => formatPercent(v, 0)}
                     onChange={v => updateBehavioral({ maxMigrationShare: v })}
-                    note="Assumption"
+                    note="Ceiling on what fraction of a cohort can leave over the projection period, even under extreme tax increases."
                   />
                   {(input.behavioral.model === 'threshold' || input.behavioral.model === 'hybrid') && (
                     <SliderInput
@@ -175,7 +182,7 @@ export default function Home() {
                       min={10_000} max={500_000} step={10_000}
                       format={v => formatCurrency(v, true)}
                       onChange={v => updateBehavioral({ thresholdDollars: v })}
-                      note="Assumption"
+                      note="Dollar amount of additional annual tax at which migration probability jumps. Below this, most filers absorb the cost."
                     />
                   )}
                   {input.behavioral.model === 'hybrid' && (
@@ -185,7 +192,7 @@ export default function Home() {
                       min={10_000} max={200_000} step={5_000}
                       format={v => formatCurrency(v, true)}
                       onChange={v => updateBehavioral({ logisticSlope: v })}
-                      note="Controls steepness of S-curve"
+                      note="Controls how sharply migration ramps up around the threshold. Lower = sharper cliff; higher = more gradual transition."
                     />
                   )}
                   <SliderInput
@@ -194,7 +201,7 @@ export default function Home() {
                     min={0} max={0.5} step={0.05}
                     format={v => formatPercent(v, 0)}
                     onChange={v => updateBehavioral({ replacementRate: v })}
-                    note="New arrivals offsetting departures"
+                    note="Share of departing high earners replaced by new arrivals. NYC's finance/media/law clusters continue attracting talent even during net outflows."
                   />
                 </>
               )}
@@ -214,6 +221,7 @@ export default function Home() {
                   { label: '5 Years', value: 5 },
                 ]}
                 onChange={v => setInput(prev => ({ ...prev, timeHorizon: v as TimeHorizon }))}
+                note="How far out to project. Migration builds over time: ~30% in year 1, ~70% by year 3, fully realized by year 5."
               />
               <SelectInput
                 label="Middle-Income Range (for offset)"
@@ -227,6 +235,7 @@ export default function Home() {
                   const [min, max] = v.split('-').map(Number);
                   setInput(prev => ({ ...prev, middleIncomeMin: min, middleIncomeMax: max }));
                 }}
+                note="If the tax change loses net revenue, this is the income range that would need a rate hike to make up the shortfall."
               />
             </div>
           </section>
@@ -494,8 +503,8 @@ function SliderInput({ label, value, min, max, step, format, onChange, note }: {
   );
 }
 
-function SelectInput<T extends string | number>({ label, value, options, onChange }: {
-  label: string; value: T; options: { label: string; value: T }[]; onChange: (v: T) => void;
+function SelectInput<T extends string | number>({ label, value, options, onChange, note }: {
+  label: string; value: T; options: { label: string; value: T }[]; onChange: (v: T) => void; note?: string;
 }) {
   return (
     <div>
@@ -512,19 +521,23 @@ function SelectInput<T extends string | number>({ label, value, options, onChang
           <option key={String(o.value)} value={String(o.value)}>{o.label}</option>
         ))}
       </select>
+      {note && <div className="text-xs text-[var(--muted)] mt-0.5 italic">{note}</div>}
     </div>
   );
 }
 
-function CheckboxInput({ label, checked, onChange }: {
-  label: string; checked: boolean; onChange: (v: boolean) => void;
+function CheckboxInput({ label, checked, onChange, note }: {
+  label: string; checked: boolean; onChange: (v: boolean) => void; note?: string;
 }) {
   return (
-    <label className="flex items-center gap-2 text-sm cursor-pointer">
-      <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)}
-        className="accent-[var(--accent)]" />
-      {label}
-    </label>
+    <div>
+      <label className="flex items-center gap-2 text-sm cursor-pointer">
+        <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)}
+          className="accent-[var(--accent)]" />
+        {label}
+      </label>
+      {note && <div className="text-xs text-[var(--muted)] mt-0.5 ml-6 italic">{note}</div>}
+    </div>
   );
 }
 
